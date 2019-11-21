@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">JavaToKotlin-Part2</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Part2</string>
+    <string name="nav_header_subtitle">subtitle</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="welcome">Welcome to Part2 demo.\nUse the lateral menu to select between available demo.</string>
+
+    <string name="chap1">ETL</string>
+    <string name="chap2">TBD</string>
+</resources>
