@@ -13,9 +13,10 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import com.google.android.material.navigation.NavigationView
 import com.peterlaurence.book.javatokotlin.part1.fragments.*
+import com.peterlaurence.book.javatokotlin.part1.fragments.java.JavaFragment
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
-    private val fragmentTags = listOf(CHAP1_TAG, CHAP2_TAG)
+    private val fragmentTags = listOf(JAVA_TAG, CHAP2_TAG)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,7 +51,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.nav_sample1 -> createAndShowFragment(CHAP1_TAG, Chap1Fragment::class.java)
+            R.id.nav_sample1 -> createAndShowFragment(JAVA_TAG, JavaFragment::class.java)
             R.id.nav_sample2 -> createAndShowFragment(CHAP2_TAG, Chap2Fragment::class.java)
         }
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
@@ -101,5 +102,5 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 }
 
-const val CHAP1_TAG = "chap1"
+const val JAVA_TAG = "java"
 const val CHAP2_TAG = "chap2"

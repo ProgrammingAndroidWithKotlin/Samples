@@ -7,6 +7,6 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="welcome">Welcome to Part1 demo.\nUse the lateral menu to select between available demo.</string>
 
-    <string name="chap1">Read and write to file</string>
+    <string name="java">Callbacks with Java</string>
     <string name="chap2">Image rendering</string>
 </resources>
