@@ -1,11 +1,12 @@
 package com.peterlaurence.book.javatokotlin.part1.samples.sharedmutable.ok;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.TimeUnit;
 
 public final class SharedMutable {
-    private static final List<String> refCount = new CopyOnWriteArrayList<>();
+    private static final List<String> refCount = Collections.synchronizedList(new ArrayList<>());
 
     private static class RefCounter extends Thread {
         @Override
