@@ -1,16 +1,16 @@
 package com.peterlaurence.book.javatokotlin.part1.core.java;
 
-import com.peterlaurence.book.javatokotlin.part1.fragments.java.CallbackViewModel;
+import com.peterlaurence.book.javatokotlin.part1.fragments.java.PurchasesViewModel;
 
 import java.util.Arrays;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class PurchasesProviderImpl implements CallbackViewModel.PurchasesProvider {
+public class PurchasesProviderImpl implements PurchasesViewModel.PurchasesProvider {
     private ExecutorService executor = Executors.newSingleThreadExecutor();
 
     @Override
-    public void fetchPurchases(String user, CallbackViewModel.PurchasesProvider.PurchaseFetchCallback callback) {
+    public void fetchPurchases(String user, PurchasesViewModel.PurchasesProvider.PurchaseFetchCallback callback) {
         /* perform asynchronous work */
         executor.submit(() -> {
             try {

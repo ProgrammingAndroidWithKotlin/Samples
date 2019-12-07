@@ -8,19 +8,20 @@ import com.peterlaurence.book.javatokotlin.part1.core.java.UserPurchases;
 
 import java.util.List;
 
-public class CallbackViewModel extends ViewModel {
+public class PurchasesViewModel extends ViewModel {
     private BillingClient billingClient;
     private PurchasesProvider purchasesProvider;
 
     private MutableLiveData<UserPurchases> purchases;
 
-    CallbackViewModel(BillingClient billingClient, PurchasesProvider purchasesProvider) {
+    PurchasesViewModel(BillingClient billingClient, PurchasesProvider purchasesProvider) {
         this.billingClient = billingClient;
         this.purchasesProvider = purchasesProvider;
     }
 
-    void getUserPurchases(String user) {
+    private void getUserPurchases(String user) {
         billingClient.init(ready -> {
+            // this is called on background thread
             purchasesProvider.fetchPurchases(user, purchases -> {
                 this.purchases.postValue(new UserPurchases(user, purchases));
             });

@@ -10,9 +10,8 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentTransaction
 import com.google.android.material.navigation.NavigationView
-import com.peterlaurence.book.javatokotlin.part1.fragments.*
+import com.peterlaurence.book.javatokotlin.part1.fragments.Chap2Fragment
 import com.peterlaurence.book.javatokotlin.part1.fragments.java.JavaFragment
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
@@ -51,33 +50,29 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.nav_sample1 -> createAndShowFragment(JAVA_TAG, JavaFragment::class.java)
-            R.id.nav_sample2 -> createAndShowFragment(CHAP2_TAG, Chap2Fragment::class.java)
+            R.id.nav_sample1 -> showFragment(JAVA_TAG) {
+                JavaFragment.newInstance("a user")
+            }
+            R.id.nav_sample2 -> showFragment(CHAP2_TAG) {
+                Chap2Fragment()
+            }
         }
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
         drawerLayout.closeDrawer(GravityCompat.START)
         return true
     }
 
-    private fun <T : Fragment> createAndShowFragment(tag: String, clazz: Class<T>) {
-        showFragment(tag) { tr, _ ->
-            createFragment(tr, clazz, tag)
-        }
-    }
-
-    private fun showFragment(tag: String, onCreate: (t: FragmentTransaction, tag: String) -> Fragment) {
+    private fun showFragment(tag: String, onCreate: () -> Fragment) {
         val transaction = supportFragmentManager.beginTransaction()
         removeFragments(tag)
         hideWelcomeMsg()
-        val fragment = supportFragmentManager.findFragmentByTag(tag) ?: onCreate(transaction, tag)
+        val fragment = supportFragmentManager.findFragmentByTag(tag) ?: {
+            val f = onCreate()
+            transaction.add(R.id.content_frame, f, tag)
+            f
+        }()
         transaction.show(fragment)
         transaction.commit()
-    }
-
-    private fun <T : Fragment> createFragment(transaction: FragmentTransaction, clazz: Class<T>, tag: String): Fragment {
-        val f = clazz.newInstance()
-        transaction.add(R.id.content_frame, f, tag)
-        return f
     }
 
     private fun removeFragments(tagExcept: String) {
