@@ -67,9 +67,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         removeFragments(tag)
         hideWelcomeMsg()
         val fragment = supportFragmentManager.findFragmentByTag(tag) ?: {
-            val f = onCreate()
-            transaction.add(R.id.content_frame, f, tag)
-            f
+            onCreate().also {
+                transaction.add(R.id.content_frame, it, tag)
+            }
         }()
         transaction.show(fragment)
         transaction.commit()
