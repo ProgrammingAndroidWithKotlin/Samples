@@ -22,7 +22,8 @@ public class JavaFragment extends Fragment {
         super.onCreate(savedInstanceState);
 
         /* Get the user from the Bundle */
-        String user = savedInstanceState != null ? savedInstanceState.getString(USER_KEY) : null;
+        Bundle args = getArguments();
+        String user = args != null ? args.getString(USER_KEY) : null;
         if (user == null) return;
 
         /* Create a ViewModel the first time this Fragment is created.
