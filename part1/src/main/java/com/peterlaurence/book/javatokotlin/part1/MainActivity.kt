@@ -51,7 +51,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.nav_sample1 -> showFragment(JAVA_TAG) {
-                JavaFragment.newInstance("a user")
+                JavaFragment()
             }
             R.id.nav_sample2 -> showFragment(CHAP2_TAG) {
                 Chap2Fragment()

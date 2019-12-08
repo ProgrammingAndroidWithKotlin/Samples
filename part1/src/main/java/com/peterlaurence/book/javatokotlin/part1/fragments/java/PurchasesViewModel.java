@@ -11,12 +11,15 @@ import java.util.List;
 public class PurchasesViewModel extends ViewModel {
     private BillingClient billingClient;
     private PurchasesProvider purchasesProvider;
+    private final String user;
 
     private MutableLiveData<UserPurchases> purchases;
 
-    PurchasesViewModel(BillingClient billingClient, PurchasesProvider purchasesProvider) {
+    PurchasesViewModel(BillingClient billingClient, PurchasesProvider purchasesProvider,
+                       String user) {
         this.billingClient = billingClient;
         this.purchasesProvider = purchasesProvider;
+        this.user = user;
     }
 
     private void getUserPurchases(String user) {
@@ -28,7 +31,7 @@ public class PurchasesViewModel extends ViewModel {
         });
     }
 
-    LiveData<UserPurchases> getPurchasesLiveData(String user) {
+    LiveData<UserPurchases> getPurchasesLiveData() {
         if (purchases == null) {
             purchases = new MutableLiveData<>();
             getUserPurchases(user);

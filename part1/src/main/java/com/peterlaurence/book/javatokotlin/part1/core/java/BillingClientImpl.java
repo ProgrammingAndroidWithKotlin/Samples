@@ -1,12 +1,12 @@
 package com.peterlaurence.book.javatokotlin.part1.core.java;
 
-import com.peterlaurence.book.javatokotlin.part1.fragments.java.PurchasesViewModel;
+import com.peterlaurence.book.javatokotlin.part1.fragments.java.PurchasesViewModel.BillingClient;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.function.Consumer;
 
-public class BillingClientImpl implements PurchasesViewModel.BillingClient {
+public class BillingClientImpl implements BillingClient {
     private ExecutorService executor = Executors.newSingleThreadExecutor();
 
     @Override

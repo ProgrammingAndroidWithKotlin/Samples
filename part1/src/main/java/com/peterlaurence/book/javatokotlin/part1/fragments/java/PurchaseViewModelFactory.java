@@ -10,12 +10,13 @@ import com.peterlaurence.book.javatokotlin.part1.core.java.PurchasesProviderImpl
 public class PurchaseViewModelFactory implements ViewModelProvider.Factory {
     private PurchasesViewModel.BillingClient billingClient = new BillingClientImpl();
     private PurchasesViewModel.PurchasesProvider purchasesProvider = new PurchasesProviderImpl();
+    private final String user = "user"; // Get in from registration service
 
     @NonNull
     @Override
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
         if (modelClass.isAssignableFrom(PurchasesViewModel.class)) {
-            return (T) new PurchasesViewModel(billingClient, purchasesProvider);
+            return (T) new PurchasesViewModel(billingClient, purchasesProvider, user);
         }
         throw new IllegalArgumentException("Unknown ViewModel class");
     }
