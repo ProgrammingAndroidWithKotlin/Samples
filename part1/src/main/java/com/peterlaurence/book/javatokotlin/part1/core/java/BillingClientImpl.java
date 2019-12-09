@@ -1,5 +1,6 @@
 package com.peterlaurence.book.javatokotlin.part1.core.java;
 
+import com.peterlaurence.book.javatokotlin.part1.fragments.java.PurchasesViewModel.PurchasesProvider;
 import com.peterlaurence.book.javatokotlin.part1.fragments.java.PurchasesViewModel.BillingClient;
 
 import java.util.concurrent.ExecutorService;
@@ -8,6 +9,11 @@ import java.util.function.Consumer;
 
 public class BillingClientImpl implements BillingClient {
     private ExecutorService executor = Executors.newSingleThreadExecutor();
+    private PurchasesProvider purchasesProvider;
+
+    public BillingClientImpl(PurchasesProvider provider) {
+        this.purchasesProvider = provider;
+    }
 
     @Override
     public void init(BillingCallback callback) {
@@ -15,7 +21,7 @@ public class BillingClientImpl implements BillingClient {
         executor.submit(() -> {
             try {
                 Thread.sleep(1000);
-                callback.onInitDone(true);
+                callback.onInitDone(purchasesProvider);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }

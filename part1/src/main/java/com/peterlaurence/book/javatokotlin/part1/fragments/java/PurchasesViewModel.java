@@ -1,5 +1,6 @@
 package com.peterlaurence.book.javatokotlin.part1.fragments.java;
 
+import androidx.annotation.Nullable;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -10,24 +11,24 @@ import java.util.List;
 
 public class PurchasesViewModel extends ViewModel {
     private BillingClient billingClient;
-    private PurchasesProvider purchasesProvider;
     private final String user;
 
     private MutableLiveData<UserPurchases> purchases;
 
-    PurchasesViewModel(BillingClient billingClient, PurchasesProvider purchasesProvider,
+    PurchasesViewModel(BillingClient billingClient,
                        String user) {
         this.billingClient = billingClient;
-        this.purchasesProvider = purchasesProvider;
         this.user = user;
     }
 
     private void getUserPurchases(String user) {
-        billingClient.init(ready -> {
+        billingClient.init(provider -> {
             // this is called on background thread
-            purchasesProvider.fetchPurchases(user, purchases -> {
-                this.purchases.postValue(new UserPurchases(user, purchases));
-            });
+            if (provider != null) {
+                provider.fetchPurchases(user, purchases -> {
+                    this.purchases.postValue(new UserPurchases(user, purchases));
+                });
+            }
         });
     }
 
@@ -41,7 +42,7 @@ public class PurchasesViewModel extends ViewModel {
 
     public interface BillingClient {
         interface BillingCallback {
-            void onInitDone(boolean ready);
+            void onInitDone(@Nullable PurchasesProvider provider);
         }
 
         void init(BillingCallback callback);
