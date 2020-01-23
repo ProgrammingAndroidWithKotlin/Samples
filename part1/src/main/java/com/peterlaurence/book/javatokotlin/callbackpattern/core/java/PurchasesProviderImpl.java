@@ -1,6 +1,6 @@
 package com.peterlaurence.book.javatokotlin.callbackpattern.core.java;
 
-import com.peterlaurence.book.javatokotlin.callbackpattern.fragments.java.PurchasesViewModel.PurchasesProvider;
+import com.peterlaurence.book.javatokotlin.callbackpattern.fragments.PurchasesViewModel.PurchasesProvider;
 
 import java.util.Arrays;
 import java.util.concurrent.ExecutorService;

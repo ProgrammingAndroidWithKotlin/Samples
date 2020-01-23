@@ -1,4 +1,4 @@
-package com.peterlaurence.book.javatokotlin.callbackpattern
+package com.peterlaurence.book.javatokotlin
 
 import android.os.Bundle
 import android.view.MenuItem
@@ -11,11 +11,14 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import com.google.android.material.navigation.NavigationView
-import com.peterlaurence.book.javatokotlin.callbackpattern.fragments.Chap2Fragment
-import com.peterlaurence.book.javatokotlin.callbackpattern.fragments.java.JavaFragment
+import com.peterlaurence.book.javatokotlin.callbackpattern.fragments.JavaFragment
+import com.peterlaurence.book.javatokotlin.cehandcancellation.CehFragment
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
-    private val fragmentTags = listOf(JAVA_TAG, CHAP2_TAG)
+    private val fragmentTags = listOf(
+        CALLBACK_PATTERN_TAG,
+        CEH_TAG
+    )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,11 +53,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.nav_sample1 -> showFragment(JAVA_TAG) {
+            R.id.nav_sample1 -> showFragment(CALLBACK_PATTERN_TAG) {
                 JavaFragment()
             }
-            R.id.nav_sample2 -> showFragment(CHAP2_TAG) {
-                Chap2Fragment()
+            R.id.nav_sample2 -> showFragment(CEH_TAG) {
+                CehFragment()
             }
         }
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
@@ -97,5 +100,5 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 }
 
-const val JAVA_TAG = "java"
-const val CHAP2_TAG = "chap2"
+const val CALLBACK_PATTERN_TAG = "cb_pattern_tag"
+const val CEH_TAG = "ceh_tag"

@@ -1,4 +1,4 @@
-package com.peterlaurence.book.javatokotlin.callbackpattern.fragments.java;
+package com.peterlaurence.book.javatokotlin.callbackpattern.fragments;
 
 import android.os.Bundle;
 

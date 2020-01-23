@@ -1,7 +1,7 @@
 package com.peterlaurence.book.javatokotlin.callbackpattern.core.java;
 
-import com.peterlaurence.book.javatokotlin.callbackpattern.fragments.java.PurchasesViewModel.PurchasesProvider;
-import com.peterlaurence.book.javatokotlin.callbackpattern.fragments.java.PurchasesViewModel.BillingClient;
+import com.peterlaurence.book.javatokotlin.callbackpattern.fragments.PurchasesViewModel.PurchasesProvider;
+import com.peterlaurence.book.javatokotlin.callbackpattern.fragments.PurchasesViewModel.BillingClient;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;

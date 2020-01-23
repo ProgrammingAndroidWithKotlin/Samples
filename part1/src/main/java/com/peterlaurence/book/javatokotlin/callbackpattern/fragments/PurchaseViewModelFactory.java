@@ -1,12 +1,12 @@
-package com.peterlaurence.book.javatokotlin.callbackpattern.fragments.java;
+package com.peterlaurence.book.javatokotlin.callbackpattern.fragments;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.peterlaurence.book.javatokotlin.callbackpattern.core.java.PurchasesProviderImpl;
-import com.peterlaurence.book.javatokotlin.callbackpattern.fragments.java.PurchasesViewModel.PurchasesProvider;
-import com.peterlaurence.book.javatokotlin.callbackpattern.fragments.java.PurchasesViewModel.BillingClient;
+import com.peterlaurence.book.javatokotlin.callbackpattern.fragments.PurchasesViewModel.PurchasesProvider;
+import com.peterlaurence.book.javatokotlin.callbackpattern.fragments.PurchasesViewModel.BillingClient;
 
 import com.peterlaurence.book.javatokotlin.callbackpattern.core.java.BillingClientImpl;
 
