@@ -2,7 +2,7 @@ package com.peterlaurence.book.javatokotlin.cehandcancellation
 
 data class Hike(val name: String, val miles: Float, val accentInFeet: Int)
 class Weather
-data class HikeData(val hike: Hike, val weather: Weather)
+data class HikeData(val hike: Hike, val weather: Weather?)
 
 fun fetchHikesForUser(userId: String): List<Hike> {
     // queries a remote server
