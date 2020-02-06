@@ -1,4 +1,4 @@
-package com.peterlaurence.book.javatokotlin.cehandcancellation
+package com.peterlaurence.book.javatokotlin.coroutinesInPractice
 
 import android.os.Bundle
 import android.view.LayoutInflater

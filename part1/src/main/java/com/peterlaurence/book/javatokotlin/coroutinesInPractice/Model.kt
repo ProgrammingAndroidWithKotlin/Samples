@@ -1,4 +1,5 @@
-package com.peterlaurence.book.javatokotlin.cehandcancellation
+package com.peterlaurence.book.javatokotlin.coroutinesInPractice
+
 
 data class Hike(val name: String, val miles: Float, val accentInFeet: Int)
 class Weather
@@ -21,4 +22,3 @@ fun fetchWeather(hike: Hike): Weather {
     Thread.sleep(150)
     return Weather()
 }
-

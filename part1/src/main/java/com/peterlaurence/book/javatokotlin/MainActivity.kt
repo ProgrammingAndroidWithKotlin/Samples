@@ -12,7 +12,7 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import com.google.android.material.navigation.NavigationView
 import com.peterlaurence.book.javatokotlin.callbackpattern.fragments.JavaFragment
-import com.peterlaurence.book.javatokotlin.cehandcancellation.CehFragment
+import com.peterlaurence.book.javatokotlin.coroutinesInPractice.CehFragment
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     private val fragmentTags = listOf(

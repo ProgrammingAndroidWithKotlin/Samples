@@ -1,17 +1,14 @@
-package com.peterlaurence.book.javatokotlin.cehandcancellation
+package com.peterlaurence.book.javatokotlin.coroutinesInPractice
 
-import android.os.Handler
-import android.os.Looper
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
-class HikesViewModelGood : ViewModel() {
+class HikesViewModelWrong : ViewModel() {
     private val ioThreadPool: ExecutorService = Executors.newWorkStealingPool(64)
     private val hikeDataList = mutableListOf<HikeData>()
     private val hikeLiveData = MutableLiveData<List<HikeData>>()
-    private val handler: Handler = Handler(Looper.getMainLooper())
 
     fun fetchHikesAsync(userId: String) {
         ioThreadPool.submit {
@@ -25,10 +22,8 @@ class HikesViewModelGood : ViewModel() {
             ioThreadPool.submit {
                 val weather = fetchWeather(hike)
                 val hikeData = HikeData(hike, weather) // container
-                handler.post {
-                    hikeDataList.add(hikeData)
-                    hikeLiveData.value = hikeDataList
-                }
+                hikeDataList.add(hikeData)
+                hikeLiveData.postValue(hikeDataList)
             }
         }
     }

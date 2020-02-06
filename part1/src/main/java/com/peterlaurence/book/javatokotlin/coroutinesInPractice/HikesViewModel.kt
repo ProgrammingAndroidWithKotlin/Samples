@@ -1,4 +1,4 @@
-package com.peterlaurence.book.javatokotlin.cehandcancellation
+package com.peterlaurence.book.javatokotlin.coroutinesInPractice
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
