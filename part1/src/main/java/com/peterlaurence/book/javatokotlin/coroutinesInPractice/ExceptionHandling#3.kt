@@ -3,9 +3,14 @@ package com.peterlaurence.book.javatokotlin.coroutinesInPractice
 import kotlinx.coroutines.*
 
 fun main() = runBlocking {
+
+    val ceh = CoroutineExceptionHandler { _, t ->
+        println("CEH handle $t")
+    }
+
     val scope = CoroutineScope(Job())
 
-    val job = scope.launch {
+    val job = scope.launch(ceh) {
         coroutineScope {
             val task1 = launch {
                 delay(1000)
