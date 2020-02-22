@@ -3,7 +3,7 @@ package com.peterlaurence.book.javatokotlin.introduction.samples.listSameTime;
 import org.junit.Test;
 
 public class ATest {
-    private A a = new A();
+    private AKt a = new AKt();
 
     @Test
     public void addTest() {
@@ -19,7 +19,7 @@ public class ATest {
         @Override
         public void run() {
             a.add();
-            System.out.println(a.aList);
+            System.out.println(a.getAList());
         }
     }
 }

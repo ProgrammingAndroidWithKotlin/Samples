@@ -13,5 +13,5 @@ public class WorkerPool {
         }
     }
 
-    // other methods
+    // other methods which may use the intrinsic lock
 }
