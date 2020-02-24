@@ -1,8 +1,6 @@
 package com.peterlaurence.book.javatokotlin.introduction.samples.listSameTime
 
 import java.util.*
-import java.util.Arrays.asList
-import java.util.concurrent.CopyOnWriteArrayList
 
 
 class AWrongKt {
