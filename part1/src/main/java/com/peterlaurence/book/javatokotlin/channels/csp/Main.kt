@@ -10,10 +10,10 @@ import kotlin.random.Random
 
 fun main() = runBlocking<Unit> {
     val shapeChannel = Channel<Shape>()
-    val shapeLocationChannel = Channel<ShapeLocation>()
+    val shapeLocationChannel = Channel<Location>()
 
     with(ShapeCollector(16)) {
-        collectShapes(shapeLocationChannel, shapeChannel)
+        start(shapeLocationChannel, shapeChannel)
         consumeShapes(shapeChannel)
     }
 
@@ -27,10 +27,10 @@ fun CoroutineScope.consumeShapes(shapesInput: ReceiveChannel<Shape>) = launch {
     }
 }
 
-fun CoroutineScope.collectNewShapes(locationsOutput: SendChannel<ShapeLocation>) = launch {
+fun CoroutineScope.collectNewShapes(locationsOutput: SendChannel<Location>) = launch {
     while (true) {
         /* Simulate fetching some shape location */
-        val location = ShapeLocation(Random.nextInt(), Random.nextInt())
+        val location = Location(Random.nextInt(), Random.nextInt())
         locationsOutput.send(location)
     }
 }
