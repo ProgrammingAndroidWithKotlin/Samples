@@ -11,7 +11,7 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import com.google.android.material.navigation.NavigationView
-import com.peterlaurence.book.javatokotlin.callbackpattern.fragments.JavaFragment
+import com.peterlaurence.book.javatokotlin.callbackpattern.fragments.PurchasesFragment
 import com.peterlaurence.book.javatokotlin.coroutinesInPractice.CehFragment
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
@@ -54,7 +54,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.nav_sample1 -> showFragment(CALLBACK_PATTERN_TAG) {
-                JavaFragment()
+                PurchasesFragment()
             }
             R.id.nav_sample2 -> showFragment(CEH_TAG) {
                 CehFragment()
