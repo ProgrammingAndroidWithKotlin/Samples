@@ -6,33 +6,39 @@ import kotlinx.coroutines.channels.ReceiveChannel
 import kotlinx.coroutines.channels.SendChannel
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.withTimeoutOrNull
 import kotlin.random.Random
 
 fun main() = runBlocking<Unit> {
     val shapeChannel = Channel<Shape>()
     val shapeLocationChannel = Channel<Location>()
 
-    with(ShapeCollector(16)) {
+    with(ShapeCollector(4)) {
         start(shapeLocationChannel, shapeChannel)
         consumeShapes(shapeChannel)
     }
 
-    collectNewShapes(shapeLocationChannel)
+    sendLocations(shapeLocationChannel)
 }
+
+var count = 0
 
 fun CoroutineScope.consumeShapes(shapesInput: ReceiveChannel<Shape>) = launch {
     for (shape in shapesInput) {
-        // do something useful with shapes
-        println("Rendering $shape")
+        // increment a counter of shapes
+        count++
     }
 }
 
-fun CoroutineScope.collectNewShapes(locationsOutput: SendChannel<Location>) = launch {
-    while (true) {
-        /* Simulate fetching some shape location */
-        val location = Location(Random.nextInt(), Random.nextInt())
-        locationsOutput.send(location)
+fun CoroutineScope.sendLocations(locationsOutput: SendChannel<Location>) = launch {
+    withTimeoutOrNull(3000) {
+        while (true) {
+            /* Simulate fetching some shape location */
+            val location = Location(Random.nextInt(), Random.nextInt())
+            locationsOutput.send(location)
+        }
     }
+    println("Received $count shapes")
 }
 
 
