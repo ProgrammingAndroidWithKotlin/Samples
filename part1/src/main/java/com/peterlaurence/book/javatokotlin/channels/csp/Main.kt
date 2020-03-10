@@ -1,24 +1,21 @@
 package com.peterlaurence.book.javatokotlin.channels.csp
 
-import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.channels.ReceiveChannel
 import kotlinx.coroutines.channels.SendChannel
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.withTimeoutOrNull
 import kotlin.random.Random
 
 fun main() = runBlocking<Unit> {
-    val shapeChannel = Channel<Shape>()
-    val shapeLocationChannel = Channel<Location>()
+    val shapes = Channel<Shape>()
+    val locations = Channel<Location>()
 
     with(ShapeCollector(4)) {
-        start(shapeLocationChannel, shapeChannel)
-        consumeShapes(shapeChannel)
+        start(locations, shapes)
+        consumeShapes(shapes)
     }
 
-    sendLocations(shapeLocationChannel)
+    sendLocations(locations)
 }
 
 var count = 0

@@ -67,7 +67,7 @@ class ShapeCollector(private val workerCount: Int) {
 
     private suspend fun getShapeData(location: Location) = withContext(Dispatchers.IO) {
         /* Simulate some remote API delay */
-        delay(10)
+        delay(500)
         ShapeData()
     }
 }
