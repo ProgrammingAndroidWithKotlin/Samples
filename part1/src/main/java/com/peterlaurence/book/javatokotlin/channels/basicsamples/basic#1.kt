@@ -4,19 +4,17 @@ import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.*
 
 fun main() = runBlocking {
-    val channel = Channel<Int>()
+    val channel = Channel<Item>()
     launch {
-        println("send 1")
-        channel.send(1)
-        println("send 2")
-        channel.send(2)
+        channel.send(Item(1))
+        channel.send(Item(2))
         println("done sending")
     }
 
-    println("receive 1")
     println(channel.receive())
-    println("receive 2")
     println(channel.receive())
 
     println("Done!")
 }
+
+data class Item(val number: Int)
