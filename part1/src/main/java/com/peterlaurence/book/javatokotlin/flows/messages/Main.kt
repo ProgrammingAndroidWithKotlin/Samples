@@ -6,6 +6,7 @@ import kotlinx.coroutines.flow.*
 import java.io.File
 import java.net.URL
 import java.time.LocalDateTime
+import java.util.*
 
 data class Message(
     val user: String,
@@ -43,12 +44,17 @@ fun getMessageFlow(factory: MessageFactory) = callbackFlow<Message> {
     }
 }
 
-fun getMessagesFromUser(user: String): Flow<Message> {
+fun getMessagesFromUser(user: String, language: String): Flow<Message> {
     return getMessageFlow()
         .filter { it.user == user }
-        .distinctUntilChangedBy {
-            it.user + it.content + it.fileUrl
-        }.flowOn(Dispatchers.Default)
+        .map {
+            it.copy(content = translate(it.content, language))
+        }
+        .flowOn(Dispatchers.Default)
+}
+
+private fun translate(content: String, language: String): String {
+    return "translated content"
 }
 
 suspend fun fetchUrl(url: URL): File = withContext(Dispatchers.IO) {
@@ -58,7 +64,7 @@ suspend fun fetchUrl(url: URL): File = withContext(Dispatchers.IO) {
 }
 
 fun main() = runBlocking {
-    getMessagesFromUser("john").mapNotNull {
+    getMessagesFromUser("john", "english").mapNotNull {
         it.fileUrl?.let { url ->  fetchUrl(url) }
     }.collect {
         println("Received ${it.name}")
