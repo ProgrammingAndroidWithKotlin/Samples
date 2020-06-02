@@ -48,13 +48,13 @@ fun getMessagesFromUser(user: String, language: String): Flow<Message> {
     return getMessageFlow()
         .filter { it.user == user }
         .map {
-            it.copy(content = translate(it.content, language))
+            it.translate(language)
         }
         .flowOn(Dispatchers.Default)
 }
 
-private fun translate(content: String, language: String): String {
-    return "translated content"
+private fun Message.translate(language: String): Message {
+    return copy(content = "translated content")
 }
 
 suspend fun fetchUrl(url: URL): File = withContext(Dispatchers.IO) {
