@@ -3,24 +3,19 @@ package com.peterlaurence.book.javatokotlin.flows.messages
 import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.*
-import java.io.File
-import java.net.URL
 import java.time.LocalDateTime
-import java.util.*
 
 data class Message(
     val user: String,
     val date: LocalDateTime,
-    val content: String,
-    val fileUrl: URL?
+    val content: String
 )
 
-private val baseUrl = URL("http", "mysocialapp", 5210, "data/files")
-
 fun getMessageFlow(): Flow<Message> = flow {
-    emit(Message("john", LocalDateTime.now(), "I'm sending a file", URL(baseUrl, "file1")))
-    emit(Message("john", LocalDateTime.now(), "I'm sending a file", URL(baseUrl, "file1")))
-    emit(Message("john", LocalDateTime.now(), "I'm sending another file", URL(baseUrl, "file2")))
+    emit(Message("Amanda", LocalDateTime.now(), "First msg"))
+    emit(Message("Amanda", LocalDateTime.now(), "Second msg"))
+    emit(Message("Pierre", LocalDateTime.now(), "First msg"))
+    emit(Message("Amanda", LocalDateTime.now(), "Third msg"))
 }
 
 fun getMessageFlow(factory: MessageFactory) = callbackFlow<Message> {
@@ -53,20 +48,13 @@ fun getMessagesFromUser(user: String, language: String): Flow<Message> {
         .flowOn(Dispatchers.Default)
 }
 
-private fun Message.translate(language: String): Message {
-    return copy(content = "translated content")
-}
-
-suspend fun fetchUrl(url: URL): File = withContext(Dispatchers.IO) {
-    // simulate an HTTP request delay
-    delay(150)
-    File(url.file)
-}
+private suspend fun Message.translate(language: String): Message =
+    withContext(Dispatchers.Default) {
+        copy(content = "translated content")
+    }
 
 fun main() = runBlocking {
-    getMessagesFromUser("john", "english").mapNotNull {
-        it.fileUrl?.let { url ->  fetchUrl(url) }
-    }.collect {
-        println("Received ${it.name}")
+    getMessagesFromUser("Amanda", "en-us").collect {
+        println("Received message from ${it.user}: ${it.content}")
     }
 }
