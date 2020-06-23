@@ -14,7 +14,6 @@ val encapsulateError = upstream
     }
     .catch { e ->
         println("Caught $e")
-        emit(5)
     }
 
 fun main() = runBlocking {
