@@ -22,14 +22,15 @@ private fun createCsv(series: List<Serie>): String {
         }
     }
 
-    val characSet = valuesMap.keys.distinctBy { it.charac }.map { it.charac }.toSet()
-    val dateSet = valuesMap.values.distinctBy { it.date }.map { it.date }.toSet().sorted()
-    val csvHeader = "date;sn;" + characSet.joinToString(";") { it.name } + "\n"
+    val distinctCharacs = valuesMap.keys.distinctBy { it.charac }.map { it.charac }
+    val distinctDates = valuesMap.values.distinctBy { it.date }.map { it.date }.sorted()
+    val distinctSerials = valuesMap.keys.distinctBy { it.serial }.map { it.serial }
 
-    val uniqueSerials = valuesMap.keys.distinctBy { it.serial }.map { it.serial }
-    val rows = dateSet.joinToString("") { date ->
-        uniqueSerials.map { serial ->
-            val characColumns = characSet.map { charac ->
+    val csvHeader = "date;sn;" + distinctCharacs.joinToString(";") { it.name } + "\n"
+
+    val rows = distinctDates.joinToString("") { date ->
+        distinctSerials.map { serial ->
+            val characColumns = distinctCharacs.map { charac ->
                 val value = valuesMap[CharacSerialKey(serial, charac, date)]
                 value?.value?.toString() ?: " "
             }
