@@ -8,7 +8,7 @@ import java.time.format.DateTimeFormatter
  * Create CSV string of the data with the followings columns:
  * date | sn | charac1 | charac2 | .. | characN
  */
-private fun createCsv(series: List<Serie>): String {
+private fun createCsvAlt1(series: List<Serie>): String {
     data class CharacSerialKey(val serial: String, val charac: Charac, val date: LocalDateTime)
 
     val valuesMap = hashMapOf<CharacSerialKey, Point>()
@@ -20,7 +20,8 @@ private fun createCsv(series: List<Serie>): String {
         }
     }
 
-    val distinctCharacs = valuesMap.keys.distinctBy { it.charac }.map { it.charac }
+    val distinctCharacs =
+        valuesMap.keys.distinctBy { it.charac }.map { it.charac }.sortedBy { it.name }
     val distinctDates = valuesMap.values.distinctBy { it.date }.map { it.date }.sorted()
     val distinctSerials = valuesMap.keys.distinctBy { it.serial }.map { it.serial }
 
@@ -46,7 +47,7 @@ private fun createCsv(series: List<Serie>): String {
  * Create CSV string of the data with the followings columns:
  * date | sn | charac1 | charac2 | .. | characN
  */
-private fun createCsvFinal(series: List<Serie>): String {
+private fun createCsvAlt2(series: List<Serie>): String {
     data class CharacSerialKey(val serial: String, val charac: Charac, val date: LocalDateTime)
 
     val valuesMap = hashMapOf<CharacSerialKey, Point>()
@@ -84,6 +85,37 @@ private fun createCsvFinal(series: List<Serie>): String {
     return csvHeader + rows
 }
 
+private fun createCsv(series: List<Serie>): String {
+    data class PointAndCharac(val point: Point, val charac: Charac)
+
+    val pointAndCharacList = series.map { serie ->
+        serie.points.map { point ->
+            PointAndCharac(point, serie.charac)
+        }
+    }.flatten()
+
+    val distinctCharacs =
+        pointAndCharacList.distinctBy { it.charac }.map { it.charac }.sortedBy { it.name }
+    val csvHeader = "date;serial;" + distinctCharacs.joinToString(";") { it.name } + "\n"
+
+    val rows = pointAndCharacList.groupBy { it.point.date }.toSortedMap().map { (date, list) ->
+        val bySerial = list.groupBy { it.point.serial }
+
+        bySerial.map { (serial, list) ->
+            val characColumns = distinctCharacs.map { charac ->
+                val value = list.firstOrNull { it.charac == charac }
+                value?.point?.value?.toString() ?: ""
+            }
+
+            listOf(date.format(), serial) + characColumns
+        }.joinToString(separator = "") {
+            it.joinToString(separator = ";", postfix = "\n")
+        }
+    }.joinToString(separator = "")
+
+    return csvHeader + rows
+}
+
 private fun LocalDateTime.format(): String {
     return this.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"))
 }
@@ -116,15 +148,15 @@ fun main() {
         ),
         Serie(
             points = listOf(
-                Point("HC127", dates[3], 0.5),
+                Point("HCj127", dates[3], 0.5),
                 Point("HC100", dates[4], 0.7)
             ),
             charac = Charac("ChordLength", CharacType.IMPORTANT)
         ),
         Serie(
             points = listOf(
-                Point("HC127", dates[3], 106524.0),
-                Point("HC127", dates[0], 16777216.0)
+                Point("HC127", dates[3], "#2196F3"),
+                Point("HC127", dates[0], "#795548")
             ),
             charac = Charac("PaintColor", CharacType.REGULAR)
         )

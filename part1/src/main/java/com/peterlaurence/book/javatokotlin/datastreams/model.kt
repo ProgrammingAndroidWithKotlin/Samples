@@ -12,7 +12,7 @@ enum class CharacType {
     REGULAR
 }
 
-data class Point(val serial: String, val date: LocalDateTime, val value: Double)
+data class Point(val serial: String, val date: LocalDateTime, val value: Any)
 
 
 
