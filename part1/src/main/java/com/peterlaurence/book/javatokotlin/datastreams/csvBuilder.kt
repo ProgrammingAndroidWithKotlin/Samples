@@ -139,24 +139,27 @@ fun main() {
     val seriesExample = listOf(
         Serie(
             points = listOf(
-                Point("HC127", dates[0], 0.1),
-                Point("HC127", dates[3], 0.2),
-                Point("HC100", dates[0], 2.0),
-                Point("HC100", dates[3], 2.1)
+                Point("HC11", dates[0], 15.1),
+                Point("HC12", dates[1], 15.05),
+                Point("HC13", dates[2], 15.11),
+                Point("HC14", dates[3], 15.08),
+                Point("HC11", dates[3], 15.06)
             ),
             charac = Charac("AngleOfAttack", CharacType.CRITICAL)
         ),
         Serie(
             points = listOf(
-                Point("HCj127", dates[3], 0.5),
-                Point("HC100", dates[4], 0.7)
+                Point("HC11", dates[0], 0.68),
+                Point("HC12", dates[1], 0.7),
+                Point("HC13", dates[2], 0.69),
+                Point("HC14", dates[3], 0.71)
             ),
             charac = Charac("ChordLength", CharacType.IMPORTANT)
         ),
         Serie(
             points = listOf(
-                Point("HC127", dates[3], "#2196F3"),
-                Point("HC127", dates[0], "#795548")
+                Point("HC11", dates[0], "#2196F3"),
+                Point("HC14", dates[3], "#795548")
             ),
             charac = Charac("PaintColor", CharacType.REGULAR)
         )
