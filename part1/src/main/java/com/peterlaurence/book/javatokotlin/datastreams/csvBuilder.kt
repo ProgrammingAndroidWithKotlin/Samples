@@ -98,20 +98,21 @@ private fun createCsv(series: List<Serie>): String {
         pointAndCharacList.distinctBy { it.charac }.map { it.charac }.sortedBy { it.name }
     val csvHeader = "date;serial;" + distinctCharacs.joinToString(";") { it.name } + "\n"
 
-    val rows = pointAndCharacList.groupBy { it.point.date }.toSortedMap().map { (date, list) ->
-        val bySerial = list.groupBy { it.point.serial }
+    val rows = pointAndCharacList.groupBy { it.point.date }.toSortedMap()
+        .map { (date, list) ->
+            val bySerial = list.groupBy { it.point.serial }
 
-        bySerial.map { (serial, list) ->
-            val characColumns = distinctCharacs.map { charac ->
-                val value = list.firstOrNull { it.charac == charac }
-                value?.point?.value?.toString() ?: ""
+            bySerial.map { (serial, list) ->
+                val characColumns = distinctCharacs.map { charac ->
+                    val value = list.firstOrNull { it.charac == charac }
+                    value?.point?.value?.toString() ?: ""
+                }
+
+                listOf(date.format(), serial) + characColumns
+            }.joinToString(separator = "") {
+                it.joinToString(separator = ";", postfix = "\n")
             }
-
-            listOf(date.format(), serial) + characColumns
-        }.joinToString(separator = "") {
-            it.joinToString(separator = ";", postfix = "\n")
-        }
-    }.joinToString(separator = "")
+        }.joinToString(separator = "")
 
     return csvHeader + rows
 }
