@@ -1,4 +1,4 @@
-package com.peterlaurence.book.javatokotlin.introduction.samples.sharedmutable.ok;
+package com.peterlaurence.book.javatokotlin.threadsafety.samples.sharedmutable.ok;
 
 import java.util.ArrayList;
 import java.util.Collections;

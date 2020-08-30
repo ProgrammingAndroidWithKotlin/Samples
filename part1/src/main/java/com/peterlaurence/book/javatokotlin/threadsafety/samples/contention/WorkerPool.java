@@ -1,4 +1,4 @@
-package com.peterlaurence.book.javatokotlin.introduction.samples.contention;
+package com.peterlaurence.book.javatokotlin.threadsafety.samples.contention;
 
 public class WorkerPool {
     private final Object workLock = new Object();

@@ -1,4 +1,4 @@
-package com.peterlaurence.book.javatokotlin.introduction.samples.listSameTime;
+package com.peterlaurence.book.javatokotlin.threadsafety.samples.listSameTime;
 
 import org.junit.Test;
 

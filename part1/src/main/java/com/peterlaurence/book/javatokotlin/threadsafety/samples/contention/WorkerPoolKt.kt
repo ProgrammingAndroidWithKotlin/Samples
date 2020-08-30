@@ -1,4 +1,4 @@
-package com.peterlaurence.book.javatokotlin.introduction.samples.contention
+package com.peterlaurence.book.javatokotlin.threadsafety.samples.contention
 
 class WorkerPoolKt {
     private val workLock = Any() // In Java, we would have used `new Object()`
