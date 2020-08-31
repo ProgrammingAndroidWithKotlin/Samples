@@ -88,11 +88,11 @@ private fun createCsvAlt2(series: List<Serie>): String {
 private fun createCsv(series: List<Serie>): String {
     data class PointAndCharac(val point: Point, val charac: Charac)
 
-    val pointAndCharacList = series.map { serie ->
+    val pointAndCharacList = series.flatMap { serie ->
         serie.points.map { point ->
             PointAndCharac(point, serie.charac)
         }
-    }.flatten()
+    }
 
     val distinctCharacs =
         pointAndCharacList.distinctBy { it.charac }.map { it.charac }.sortedBy { it.name }
