@@ -159,8 +159,8 @@ fun main() {
         ),
         Serie(
             points = listOf(
-                Point("HC11", dates[0], "#2196F3"),
-                Point("HC14", dates[3], "#795548")
+                Point("HC11", dates[0], 0x2196F3.toDouble()),
+                Point("HC14", dates[3], 0x795548.toDouble())
             ),
             charac = Charac("PaintColor", CharacType.REGULAR)
         )
