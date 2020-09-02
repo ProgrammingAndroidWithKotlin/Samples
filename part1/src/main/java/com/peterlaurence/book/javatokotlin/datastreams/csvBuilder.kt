@@ -8,12 +8,12 @@ import java.time.format.DateTimeFormatter
  * Create CSV string of the data with the followings columns:
  * date | sn | charac1 | charac2 | .. | characN
  */
-private fun createCsvAlt1(series: List<Serie>): String {
+private fun createCsvAlt1(timeSeries: List<TimeSerie>): String {
     data class CharacSerialKey(val serial: String, val charac: Charac, val date: LocalDateTime)
 
     val valuesMap = hashMapOf<CharacSerialKey, Point>()
 
-    series.forEach { serie ->
+    timeSeries.forEach { serie ->
         serie.points.forEach { point ->
             val key = CharacSerialKey(point.serial, serie.charac, point.date)
             valuesMap[key] = point
@@ -47,12 +47,12 @@ private fun createCsvAlt1(series: List<Serie>): String {
  * Create CSV string of the data with the followings columns:
  * date | sn | charac1 | charac2 | .. | characN
  */
-private fun createCsvAlt2(series: List<Serie>): String {
+private fun createCsvAlt2(timeSeries: List<TimeSerie>): String {
     data class CharacSerialKey(val serial: String, val charac: Charac, val date: LocalDateTime)
 
     val valuesMap = hashMapOf<CharacSerialKey, Point>()
 
-    series.filter {
+    timeSeries.filter {
         it.charac.type == CharacType.CRITICAL || it.charac.type == CharacType.IMPORTANT
     }.forEach { serie ->
         serie.points.forEach { point ->
@@ -85,10 +85,10 @@ private fun createCsvAlt2(series: List<Serie>): String {
     return csvHeader + rows
 }
 
-private fun createCsv(series: List<Serie>): String {
+private fun createCsv(timeSeries: List<TimeSerie>): String {
     data class PointAndCharac(val point: Point, val charac: Charac)
 
-    val pointAndCharacList = series.flatMap { serie ->
+    val pointAndCharacList = timeSeries.flatMap { serie ->
         serie.points.map { point ->
             PointAndCharac(point, serie.charac)
         }
@@ -138,7 +138,7 @@ fun main() {
     )
 
     val seriesExample = listOf(
-        Serie(
+        TimeSerie(
             points = listOf(
                 Point("HC11", dates[0], 15.1),
                 Point("HC12", dates[1], 15.05),
@@ -148,7 +148,7 @@ fun main() {
             ),
             charac = Charac("AngleOfAttack", CharacType.CRITICAL)
         ),
-        Serie(
+        TimeSerie(
             points = listOf(
                 Point("HC11", dates[0], 0.68),
                 Point("HC12", dates[1], 0.7),
@@ -157,7 +157,7 @@ fun main() {
             ),
             charac = Charac("ChordLength", CharacType.IMPORTANT)
         ),
-        Serie(
+        TimeSerie(
             points = listOf(
                 Point("HC11", dates[0], 0x2196F3.toDouble()),
                 Point("HC14", dates[3], 0x795548.toDouble())

@@ -2,7 +2,7 @@ package com.peterlaurence.book.javatokotlin.datastreams
 
 import java.time.LocalDateTime
 
-data class Serie(val points: List<Point>, val charac: Charac)
+data class TimeSerie(val points: List<Point>, val charac: Charac)
 
 data class Charac(val name: String, val type: CharacType)
 
