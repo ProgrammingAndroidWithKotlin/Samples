@@ -134,7 +134,6 @@ fun main() {
         LocalDateTime.parse("2020-07-27T15:35:00"),
         LocalDateTime.parse("2020-07-27T15:25:00"),
         LocalDateTime.parse("2020-07-27T15:15:00"),
-        LocalDateTime.parse("2020-07-27T15:10:00")
     )
 
     val seriesExample = listOf(
@@ -144,7 +143,6 @@ fun main() {
                 Point("HC12", dates[1], 15.05),
                 Point("HC13", dates[2], 15.11),
                 Point("HC14", dates[3], 15.08),
-                Point("HC11", dates[3], 15.06)
             ),
             charac = Charac("AngleOfAttack", CharacType.CRITICAL)
         ),
