@@ -17,7 +17,7 @@ fun main() = runBlocking {
 }
 
 val okHttpClient = OkHttpClient()
-val request = Request.Builder().url("http://localhost:3200/mapview-tile/0/0/0").build()
+val request = Request.Builder().url("http://publicobject.com/helloworld.txt").build()
 
 suspend fun performHttpRequest(): ResponseBody? = withContext(Dispatchers.IO) {
     val call = okHttpClient.newCall(request)
