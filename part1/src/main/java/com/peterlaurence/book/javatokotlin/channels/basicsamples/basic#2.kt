@@ -5,10 +5,11 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
 fun main() = runBlocking {
-    val channel = Channel<Int>()
+    val channel = Channel<Item>()
     launch {
-        channel.send(1)
-        channel.send(2)
+        channel.send(Item(1))
+        channel.send(Item(2))
+        println("Done sending")
         channel.close()
     }
 

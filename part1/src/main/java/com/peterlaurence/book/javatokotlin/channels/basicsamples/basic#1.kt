@@ -8,7 +8,7 @@ fun main() = runBlocking {
     launch {
         channel.send(Item(1))
         channel.send(Item(2))
-        println("done sending")
+        println("Done sending")
     }
 
     println(channel.receive())
