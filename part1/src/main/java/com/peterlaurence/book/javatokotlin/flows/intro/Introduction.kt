@@ -18,10 +18,10 @@ suspend fun transform(n: Int) = withContext(Dispatchers.Default) {
 
 fun main() = runBlocking {
     /* DON'T do this - uses deprecated map function on Channel */
-    val channel = numbers().map {
-        transform(it)
-    }
-    for (x in channel) {
-        println(x)
-    }
+//    val channel = numbers().map {
+//        transform(it)
+//    }
+//    for (x in channel) {
+//        println(x)
+//    }
 }
