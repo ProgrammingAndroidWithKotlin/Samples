@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.collect
 
 class NewsRepository(private val dao: NewsDao) {
-    private val _newsFeed = MutableSharedFlow<News>(0)
+    private val _newsFeed = MutableSharedFlow<News>()
     val newsFeed = _newsFeed.asSharedFlow()
 
     private val scope = CoroutineScope(Job() + Dispatchers.IO)
@@ -45,6 +45,28 @@ class NewsViewsModel(private val repository: NewsRepository) {
     }
 }
 
+/**
+ * This is the version you would use in a real Android application
+ */
+//class NewsViewsModel @ViewModelInject constructor(
+//    private val repository: NewsRepository
+//) : ViewModel() {
+//    private val newsList = mutableListOf<News>()
+//
+//    private val _newsLiveData = MutableLiveData<List<News>>(newsList)
+//    val newsLiveData: LiveData<List<News>> = _newsLiveData
+//
+//    init {
+//        viewModelScope.launch {
+//            repository.newsFeed.collect {
+//                println("NewsViewsModel receives $it")
+//                newsList.add(it)
+//                _newsLiveData.value = newsList
+//            }
+//        }
+//    }
+//}
+
 class AnotherViewModel(private val repository: NewsRepository) {
     private val viewModelScope = CoroutineScope(SupervisorJob() + Dispatchers.Default)
 
@@ -63,13 +85,13 @@ fun main() = runBlocking {
         private var index = 0
 
         override suspend fun fetchNewsFromApi(): List<News> {
-            delay(1000)
+            delay(100)
             return listOf(News("news content ${++index}"), News("news content ${++index}"))
         }
     }
     val repo = NewsRepository(dao)
     NewsViewsModel(repo)
-    delay(5000)
+    delay(150)
     AnotherViewModel(repo)
 
     delay(30_000)
