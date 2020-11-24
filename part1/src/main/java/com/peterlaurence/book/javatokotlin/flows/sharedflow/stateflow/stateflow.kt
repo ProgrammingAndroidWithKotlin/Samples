@@ -14,7 +14,8 @@ import kotlinx.coroutines.flow.asStateFlow
 
 sealed class ServiceStatus
 object Started : ServiceStatus()
-data class Aborted(val reason: String): ServiceStatus()
+data class Downloading(val progress: Int) : ServiceStatus()
+data class Aborted(val reason: String) : ServiceStatus()
 object Stopped : ServiceStatus()
 
 class DownloadService : Service() {
@@ -48,7 +49,10 @@ class DownloadService : Service() {
 
     private suspend fun downloadUrl(url: String) {
         /* Simulate a download */
-        delay(1000)
+        for (i in 0..100) {
+            _downloadState.tryEmit(Downloading(i))
+            delay(10)
+        }
     }
 
     private fun stopService() {
@@ -74,9 +78,10 @@ class DownloadFragment : Fragment() {
         }
     }
 
-    private fun onDownloadServiceStatus(status: ServiceStatus): Nothing = when(status) {
-        Started -> TODO()
-        Stopped -> TODO()
-        is Aborted -> TODO()
+    private fun onDownloadServiceStatus(status: ServiceStatus): Nothing = when (status) {
+        Started -> TODO("Show download is a about to start")
+        Stopped -> TODO("Show download stopped")
+        is Downloading -> TODO("Show progress")
+        is Aborted -> TODO("Something went wring")
     }
 }
