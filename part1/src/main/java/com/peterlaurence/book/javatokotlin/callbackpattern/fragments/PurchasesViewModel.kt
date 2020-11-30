@@ -14,19 +14,11 @@ class PurchasesViewModel internal constructor(
     private var _purchases = MutableLiveData<UserPurchases>()
 
     private fun getUserPurchases(user: String) {
-        billingClient.init(object : BillingCallback {
-            override fun onInitDone(provider: PurchasesProvider?) {
-                // this is called from a background thread
-                provider?.fetchPurchases(
-                    user,
-                    object : PurchaseFetchCallback {
-                        override fun onPurchaseFetchDone(purchases: List<String>) {
-                            _purchases.postValue(UserPurchases(user, purchases))
-                        }
-                    }
-                )
+        billingClient.init { provider -> // this is called from a background thread
+            provider?.fetchPurchases(user) { purchases ->
+                _purchases.postValue(UserPurchases(user, purchases))
             }
-        })
+        }
     }
 
     val purchasesLiveData: LiveData<UserPurchases>
@@ -36,7 +28,7 @@ class PurchasesViewModel internal constructor(
         }
 
     interface BillingClient {
-        interface BillingCallback {
+        fun interface BillingCallback {
             fun onInitDone(provider: PurchasesProvider?)
         }
 
@@ -44,7 +36,7 @@ class PurchasesViewModel internal constructor(
     }
 
     interface PurchasesProvider {
-        interface PurchaseFetchCallback {
+        fun interface PurchaseFetchCallback {
             fun onPurchaseFetchDone(purchases: List<String>)
         }
 
