@@ -56,6 +56,6 @@ suspend fun main() {
     val startTime = System.currentTimeMillis()
     flow.bufferTimeout(10, 50).collect {
         val time = System.currentTimeMillis() - startTime
-        println("$time: $it")
+        println("$time ms: $it")
     }
 }
