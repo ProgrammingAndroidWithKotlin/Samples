@@ -5,13 +5,13 @@ import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
-private fun getDataFlow(n: Int): Flow<Data>{
+private fun getDataFlow(n: Int): Flow<TokenData>{
     return flow {
         connect()
         repeat(n) {
             val token = getToken()
-            val opt = getOpt(token)
-            emit(Data(token, opt))
+            val data = getData(token)
+            emit(TokenData(token, data))
         }
     }.onCompletion {
         disconnect()
@@ -30,17 +30,17 @@ private suspend fun getToken(): String {
     return "token"
 }
 
-private suspend fun getOpt(token: String): String? {
-    println("Getting opt for $token")
+private suspend fun getData(token: String): String? {
+    println("Getting data for $token")
     delay(5)
-    return "opt"
+    return "data"
 }
 
 private fun disconnect() {
     println("Disconnect")
 }
 
-data class Data(val token: String, val opt: String? = null)
+data class TokenData(val token: String, val data: String? = null)
 
 fun main() = runBlocking<Unit> {
     val flow = getDataFlow(3)

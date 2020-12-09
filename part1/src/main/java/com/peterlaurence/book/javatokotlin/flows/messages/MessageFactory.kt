@@ -22,7 +22,7 @@ abstract class MessageFactory : Thread() {
     abstract fun fetchMessage(): Message
 
     fun registerObserver(observer: MessageObserver) {
-        observers
+        observers.add(observer)
     }
 
     fun unregisterObserver(observer: MessageObserver) {
