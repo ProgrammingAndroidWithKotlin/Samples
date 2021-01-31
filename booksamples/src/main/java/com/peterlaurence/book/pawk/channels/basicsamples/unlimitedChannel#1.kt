@@ -12,6 +12,7 @@ fun main() = runBlocking {
         while (isActive) {
             channel.send(i++)
         }
+        println("Child is done sending")
     }
 
     println("Parent executing from ${Thread.currentThread().name}")
