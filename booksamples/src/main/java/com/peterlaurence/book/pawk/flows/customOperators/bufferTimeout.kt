@@ -43,7 +43,7 @@ fun <T> Flow<T>.bufferTimeout(maxSize: Int, maxDelayMillis: Long): Flow<List<T>>
                 }
             }
         } catch (e: ClosedReceiveChannelException) {
-            if (buffer.isNotEmpty()) emitBuffer()
+            emitBuffer()
         } finally {
             channel.cancel()
             ticker.cancel()
