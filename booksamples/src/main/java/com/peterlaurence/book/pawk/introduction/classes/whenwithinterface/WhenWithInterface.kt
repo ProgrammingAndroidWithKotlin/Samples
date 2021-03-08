@@ -1,4 +1,4 @@
-package com.peterlaurence.book.pawk.introduction.classes
+package com.peterlaurence.book.pawk.introduction.classes.whenwithinterface
 
 class SomeType
 
