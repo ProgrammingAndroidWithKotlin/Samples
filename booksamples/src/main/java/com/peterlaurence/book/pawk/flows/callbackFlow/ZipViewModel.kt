@@ -7,7 +7,7 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.channels.awaitClose
-import kotlinx.coroutines.channels.sendBlocking
+import kotlinx.coroutines.channels.trySendBlocking
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.flow.collect
@@ -35,18 +35,18 @@ class ZipViewModel : ViewModel() {
 
         val progressionListener = object : ZipTask.ZipProgressionListener {
             override fun onZipProgress(p: Int) {
-                offer(ZipProgressEvent(p))
+                trySend(ZipProgressEvent(p))
             }
 
             override fun onZipFinished() {
-                sendBlocking(ZipFinishedEvent)
-                sendBlocking(ZipCloseEvent)
+                trySendBlocking(ZipFinishedEvent)
+                trySendBlocking(ZipCloseEvent)
                 channel.close()
             }
 
             override fun onZipError(e: Exception) {
-                sendBlocking(ZipErrorEvent(e))
-                sendBlocking(ZipCloseEvent)
+                trySendBlocking(ZipErrorEvent(e))
+                trySendBlocking(ZipCloseEvent)
                 cancel(CancellationException("Error in ZipTask", e))
             }
         }
