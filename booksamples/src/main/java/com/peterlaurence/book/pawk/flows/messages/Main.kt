@@ -21,7 +21,7 @@ fun getMessageFlow(): Flow<Message> = flow {
 fun getMessageFlow(factory: MessageFactory) = callbackFlow<Message> {
     val observer = object : MessageFactory.MessageObserver {
         override fun onMessage(msg: Message) {
-            offer(msg)
+            trySend(msg)
         }
 
         override fun onCancelled() {

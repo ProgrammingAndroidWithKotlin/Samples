@@ -11,6 +11,7 @@ import kotlinx.coroutines.runBlocking
 
 class EventBus {
     private val _startDownloadEvent = MutableSharedFlow<DownloadEvent>(
+            replay = 0,
         extraBufferCapacity = 1,
         onBufferOverflow = BufferOverflow.DROP_OLDEST
     )
@@ -39,9 +40,9 @@ class Downloader(private val eventBus: EventBus, val scope: CoroutineScope) {
 fun main() = runBlocking {
     val eventBus = EventBus()
 
-    val downloader = Downloader(eventBus, this)
     delay(100)
     println("start download")
+    Downloader(eventBus, this)
     eventBus.startDownload("http://somewebsite_link")
     Unit
 }
